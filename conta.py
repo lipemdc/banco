@@ -28,7 +28,7 @@ class Conta:
             self.__saldo -= valor
             destino.depositar(valor)
         except ValueError as e:
-            print("erro ao transferir: {e}")
+            print(f"erro ao transferir: {e}")
             
         
     def get_saldo(self):
