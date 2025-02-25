@@ -14,9 +14,9 @@ class Conta:
 
     def __lt__(self, outro):
         return self.__saldo < outro.__saldo
-
+    
     def __str__(self):
-        return f"{self.__class__.__name__} {self.__titular} - Saldo: R$ {self.__saldo:.2f}"
+        return f"Conta de {self.__titular} - Saldo: R$ {self.__saldo:.2f}"
 
     def transferencia(self, valor, destino):
         try:
@@ -27,9 +27,12 @@ class Conta:
             
             self.__saldo -= valor
             destino.depositar(valor)
+            return True
         except ValueError as e:
             print(f"erro ao transferir: {e}")
             
+    def aplicar_juros(self):
+        pass  
         
     def get_saldo(self):
         return self.__saldo
@@ -38,11 +41,8 @@ class Conta:
         return self.__titular
         
     def set_saldo(self, valor):
-        if valor  >= 0:
-            self.__saldo = valor
-        else:
-            raise ValueError("o valor deve deve ser maior que 0")
-            
+        self.__saldo = valor
+    
 
 
 

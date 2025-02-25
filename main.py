@@ -50,7 +50,7 @@ if __name__ == "__main__":
                 raise ValueError("o valor a ser sacado deve ser maior que 0")
             
             if not contas[nome].sacar(valor):
-                raise ValueError("saldo insuficiente para saque")
+                raise ValueError("saldo insuficiente para saque.")
             else:
                 print(f"saque de R${valor} realizado na conta {nome}")
 
@@ -82,11 +82,39 @@ if __name__ == "__main__":
 
         except ValueError as e:
             print(f"erro: {e}")
+
+    def aplicar_rendimento():
+        try:
+            nome = input("digite o nome da conta que deseja aplicar o rendimento ")
+            if nome not in contas:
+                raise ValueError("essa conta não existe.")
+            contas[nome].render()
+        except ValueError as e:
+            print(f"erro: {e}")
+        except Exception:
+            print("Erro.")
+    
+    def comparar_contas():
+        try:
+            nome1 = input("digite o nome da conta a ser comparada ")
+            nome2 = input("digite o nome da outra conta a ser comparada ")
+            if nome1 not in contas or nome2 not in contas:
+                raise ValueError("uma ou as duas contas não existem.")
+            if contas[nome1] == contas[nome2]:
+                print("as duas contas tem o mesmo saldo.")
+            elif contas[nome1] < contas[nome2]:
+                print(f"{nome2} tem mais saldo que {nome1}")
+            else:
+                print(f"{nome1} tem mais saldo que {nome2}.")
+        except ValueError as e:
+            print(f"erro: {e}")
+
         
+
 
     def menu():
         while True:
-            print("---BANCO LIPE---\n1- criar conta\n2- depositar\n3- sacar\n4- verificar saldo\n5- pix\n6- sair")
+            print("---BANCO LIPE E MOÉSIO---\n1- criar conta\n2- depositar\n3- sacar\n4- verificar saldo\n5- pix\n6- aplicar rendimento (conta poupança)\n7- comparar contas\n8- sair")
             try:    
                 escolha = input("oque deseja fazer?")
                 if escolha == "1":
@@ -100,10 +128,14 @@ if __name__ == "__main__":
                 elif escolha == "5":
                     transferir()
                 elif escolha == "6":
+                    aplicar_rendimento()
+                elif escolha == "7":
+                    comparar_contas()
+                elif escolha == "8":
                     print("---Até a próxima, volte sempre!!---")
                     break
                 else: 
-                    raise ValueError("digite um numero de 1 a 6")
+                    raise ValueError("digite um numero de 1 a 8")
             except ValueError as e:
                 print(f"erro: {e}")
     menu()
