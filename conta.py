@@ -1,11 +1,13 @@
 class Conta:
-    def __init__(self, titular, saldo=0):
+    def __init__(self, titular, cpf, senha=None, saldo=0,):
         self.__titular = titular
         self.__saldo = saldo
+        self.__senha = senha
+        self.__cpf = cpf
 
     def depositar(self, valor):
         pass
-
+    
     def sacar(self, valor):
         pass
 
@@ -19,33 +21,37 @@ class Conta:
         return f"Conta de {self.__titular} - Saldo: R$ {self.__saldo:.2f}"
 
     def transferencia(self, valor, destino):
-        try:
-            if valor <= 0:
-                raise ValueError("o valor a ser transferido deve ser maior que 0")
-            elif valor > self.__saldo:
-                raise ValueError("saldo insufiente para transferencia")
-            
-            self.__saldo -= valor
-            destino.depositar(valor)
-            return True
-        except ValueError as e:
-            print(f"erro ao transferir: {e}")
-            
+        if valor <= 0:
+            return False
+        elif valor > self.__saldo:
+            return False
+        self.__saldo -= valor
+        destino.depositar(valor)
+        return True
+
     def aplicar_juros(self):
         pass  
+
+    def get_titular(self):
+        return self.__titular
+    
+    def set_titular(self, novo_titular):
+        self.__titular = novo_titular
         
     def get_saldo(self):
         return self.__saldo
         
-    def get_titular(self):
-        return self.__titular
-        
     def set_saldo(self, valor):
         self.__saldo = valor
+
+    def get_senha(self):
+        return self.__senha
     
+    def set_senha(self, nova_senha):
+        self.__senha = nova_senha
 
-
-
-
-
-
+    def get_cpf(self):
+        return self.__cpf
+    
+    def set_cpf(self, novo_cpf):
+        self.__cpf = novo_cpf
