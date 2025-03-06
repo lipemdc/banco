@@ -1,5 +1,5 @@
 class Conta:
-    def __init__(self, titular, cpf, senha=None, saldo=0,):
+    def __init__(self, titular, cpf, senha, saldo=0,):
         self.__titular = titular
         self.__saldo = saldo
         self.__senha = senha
@@ -18,16 +18,17 @@ class Conta:
         return self.__saldo < outro.__saldo
     
     def __str__(self):
-        return f"Conta de {self.__titular} - Saldo: R$ {self.__saldo:.2f}"
+        return "\n" + "-"*10 + f"SALDO ATUAL - R$ {self.__saldo:.2f} ".center(30) + "-"*10
 
     def transferencia(self, valor, destino):
-        if valor <= 0:
-            return False
-        elif valor > self.__saldo:
-            return False
-        self.__saldo -= valor
-        destino.depositar(valor)
-        return True
+        try:
+            if valor > self.__saldo:
+                raise ValueError("Saldo insuficiente para a transferencia.")
+            self.__saldo -= valor
+            destino.depositar(valor)
+            return True
+        except ValueError as e:
+            print(f"❌ Erro: {e}")
 
     def aplicar_juros(self):
         pass  

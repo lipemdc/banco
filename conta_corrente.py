@@ -1,7 +1,7 @@
 from conta import Conta
 
 class ContaCorrente(Conta):
-    def __init__(self, titular, cpf, senha=None, saldo=0, limite=500):
+    def __init__(self, titular, cpf, senha, saldo=0, limite=500):
         super().__init__(titular, cpf, senha, saldo)
         self.__limite = limite
     
@@ -18,7 +18,7 @@ class ContaCorrente(Conta):
             return True
             
         except ValueError as e:
-            print(f"Erro ao sacar: {e}")
+            print(f"❌ Erro: {e}")
 
     def get_limite(self):
         return self.__limite
